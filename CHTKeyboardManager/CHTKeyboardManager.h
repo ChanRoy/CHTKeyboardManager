@@ -37,6 +37,7 @@
  */
 @interface CHTKeyboardManager : NSObject
 
+//showIndex: the index that the keyboard show notification post
 @property (nonatomic, copy) void (^animateWhenKeyboardShow)(NSInteger showIndex, CGFloat keyboardHeight, CGFloat keyboardHeightIncrement);
 
 @property (nonatomic, copy) void (^animateWhenKeyboardHide)(CGFloat keyboardHeight);
