@@ -26,7 +26,7 @@
     _keyboardManager = [[CHTKeyboardManager alloc]init];
     
     __weak typeof(self) weakSelf = self;
-    _keyboardManager.animateWhenKeyboardAppear = ^(NSInteger appearPostIndex, CGFloat keyboardHeight, CGFloat keyboardHeightIncrement) {
+    _keyboardManager.animateWhenKeyboardShow = ^(NSInteger appearPostIndex, CGFloat keyboardHeight, CGFloat keyboardHeightIncrement) {
         
         
         NSLog(@"Show --> appearPostIndex: %ld, keyboardHeight: %.2f, keyboardHeightIncrement: %.2f",appearPostIndex, keyboardHeight, keyboardHeightIncrement);

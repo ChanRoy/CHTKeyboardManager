@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/**
+ store the userInfo of keyboard notification
+ */
 @interface CHTKeyboardInfo : NSObject
 
 @property (nonatomic, assign) NSTimeInterval animationDuration;
@@ -29,9 +32,12 @@
 
 @end
 
+/**
+ manager keyboard behaviour
+ */
 @interface CHTKeyboardManager : NSObject
 
-@property (nonatomic, copy) void (^animateWhenKeyboardAppear)(NSInteger appearPostIndex, CGFloat keyboardHeight, CGFloat keyboardHeightIncrement);
+@property (nonatomic, copy) void (^animateWhenKeyboardShow)(NSInteger showIndex, CGFloat keyboardHeight, CGFloat keyboardHeightIncrement);
 
 @property (nonatomic, copy) void (^animateWhenKeyboardHide)(CGFloat keyboardHeight);
 

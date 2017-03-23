@@ -8,8 +8,6 @@
 
 #import "CHTKeyboardManager.h"
 
-
-
 @implementation CHTKeyboardInfo
 
 - (CGFloat)height{
@@ -22,11 +20,14 @@
 #pragma mark - keyboard manager
 @interface CHTKeyboardManager ()
 
+/**
+ store the infomation everytime the keyboard's frame changes
+ */
 @property (nonatomic, strong) CHTKeyboardInfo *keyboardInfo;
 
 @property (nonatomic, assign) BOOL isObserverEnable;
 
-@property (nonatomic, assign) NSInteger appearPostIndex;
+@property (nonatomic, assign) NSInteger showIndex;
 
 @end
 
@@ -34,7 +35,6 @@
 
 - (void)dealloc{
     
-    NSLog(@"dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -87,11 +87,11 @@
             
             if (keyboardInfo.isShow) {
                 
-                if (self.animateWhenKeyboardAppear) {
+                if (self.animateWhenKeyboardShow) {
                     
-                    self.animateWhenKeyboardAppear(self.appearPostIndex, keyboardInfo.height, keyboardInfo.heightIncrement);
+                    self.animateWhenKeyboardShow(self.showIndex, keyboardInfo.height, keyboardInfo.heightIncrement);
                 }
-                self.appearPostIndex += 1;
+                self.showIndex += 1;
                 
             }else{
                 
@@ -99,7 +99,7 @@
                     
                     self.animateWhenKeyboardHide(keyboardInfo.height);
                 }
-                self.appearPostIndex = 0;
+                self.showIndex = 0;
             }
             
         } completion:NULL];
@@ -115,23 +115,21 @@
 #pragma mark - observer
 - (void)keyboardWillShow:(NSNotification *)noti{
     
-    NSLog(@"%s",__func__);
     [self handleKeyboardInfoWithNoti:noti isShow:YES];
 }
 
 - (void)keyboardWillChangeFrame:(NSNotification *)noti{
     
-    NSLog(@"%s",__func__);
     [self handleKeyboardInfoWithNoti:noti isShow:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification *)noti{
-    NSLog(@"%s",__func__);
+
     [self handleKeyboardInfoWithNoti:noti isShow:NO];
 }
 
 - (void)keyboardDidHide:(NSNotification *)noti{
-    NSLog(@"%s",__func__);
+
     _keyboardInfo = nil;
 }
 
@@ -146,9 +144,9 @@
     }
 }
 
-- (void)setAnimateWhenKeyboardAppear:(void (^)(NSInteger, CGFloat, CGFloat))animateWhenKeyboardAppear{
+- (void)setAnimateWhenKeyboardShow:(void (^)(NSInteger, CGFloat, CGFloat))animateWhenKeyboardShow{
     
-    _animateWhenKeyboardAppear = [animateWhenKeyboardAppear copy];
+    _animateWhenKeyboardShow = [animateWhenKeyboardShow copy];
     
     self.isObserverEnable = YES;
 }
